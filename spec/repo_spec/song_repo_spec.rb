@@ -4,6 +4,7 @@ describe Songify::SongRepo do
   let(:songs) { Songify::SongRepo.new } 
   let(:albums) { Songify::AlbumRepo.new }
   let(:recovery) { albums.create({title: "Recovery", year: 2009, genre: 'Rap', image_link: 'www.example-link.com'}) }
+  let(:take_care) { albums.create({title: "Take Care", year: 2011, genre: 'Rap', image_link: "www.another-link.com"}) }
 
   before(:each) do
     albums.drop_table
@@ -46,6 +47,17 @@ describe Songify::SongRepo do
       updated_song = songs.update({id: song.id, youtube_link: 'www.youtube.com/space-bound'})
       expect(updated_song).to be_a(Songify::Song)
       expect(updated_song.youtube_link).to eq("www.youtube.com/space-bound")
+    end
+  end
+
+  describe "find_all" do
+    it "finds all the songs of a given album" do
+      song1 = songs.create({name: "Space Bound", youtube_link: 'youtube.com/space-bound', album: recovery}) 
+      song2 = songs.create({name: "Not Afraid", youtube_link: 'youtube.com/not-afraid', album: recovery}) 
+      song3 = songs.create({name: "Underground Kings", youtube_link: 'youtube.com/underground-kings', album: take_care })
+      recovery_songs = songs.find_all({album: recovery})
+      expect(recovery_songs.length).to eq(2)
+      expect(recovery_songs).not_to include(song3)
     end
   end
 end

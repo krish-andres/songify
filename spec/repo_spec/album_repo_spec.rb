@@ -23,6 +23,16 @@ describe Songify::AlbumRepo do
     end
   end
 
+  describe "find all" do
+    it "finds all albums from the database" do
+      albums.create({title: "Recovery", year: 2009, genre: 'Rap', image_link: "www.example-link.com"})
+      albums.create({title: "Take Care", year: 2011, genre: 'Rap', image_link: "www.another-link.com"})
+      albums.create({title: "Graduation", year: 2007, genre: 'Rap', image_link: "www.third-link.com"})
+      all_albums = albums.find_all
+      expect(all_albums.length).to eq(3)
+    end
+  end
+
   describe 'update' do
     it "changes the specified attributes" do
       album = albums.create({title: "Recovery", year: 2009, genre: 'Rap', image_link: "www.example-link.com"})       

@@ -14,5 +14,17 @@ end
 
 post '/albums' do
   puts params
-redirect to('/')
+  @title = params[:albumTitle]
+  @year = params[:albumYear]
+  @genre = params[:albumGenre]
+  @image_link = params[:albumImage]
+  Songify::AlbumRepo.new.create({title: @title, year: @year, genre: @genre, image_link: @image_link})
+  redirect to('/')
+end
+
+get '/albums/:id' do
+  @songs = Songify::SongRepo.new.find_all
+  
+
+  erb :album
 end

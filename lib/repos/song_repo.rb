@@ -82,6 +82,16 @@ module Songify
       build_song(result.first)
     end
 
+    def find_all(params)
+      album = params[:album]
+      album_id = album.id
+      command = <<-SQL
+        SELECT * FROM songs WHERE album_id=$1
+      SQL
+      results = @db.exec(command, [album_id])
+      results.map { |result| build_song(result) }
+    end
+
   end
 end
 
