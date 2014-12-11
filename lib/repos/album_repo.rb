@@ -78,8 +78,23 @@ module Songify
       SQL
       result = @db.exec(command, [id, image_link])
       build_album(result.first)
+    end
 
+    def find_all
+      command = <<-SQL
+        SELECT * FROM albums;
+      SQL
+      results = @db.exec(command)
+      results.map { |result| build_album(result) }
     end
 
   end
 end
+
+
+
+
+
+
+
+
