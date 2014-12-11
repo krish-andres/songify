@@ -1,6 +1,6 @@
 require_relative '../../spec_helper.rb'
 
-describe Songify::Album do
+describe Songify::AlbumRepo do
   let(:albums) { Songify::AlbumRepo.new }
   before(:each) do
     albums.drop_table

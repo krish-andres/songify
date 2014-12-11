@@ -5,8 +5,8 @@ class Songify::Album
   def initialize(params)
     @id = params[:id]
     @title = params[:title]
-    @year = params[:year]
-    @genre = params[:genre]
-    @image_link = params[:image_link]
+    @year = params[:year] || "N/A"
+    @genre = params[:genre] || "N/A"
+    @image_link = params[:image_link] || "N/A"
   end
 end

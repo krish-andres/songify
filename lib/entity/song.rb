@@ -1,6 +1,11 @@
 class Songify::Song
-  def initialize(name, youtube_link)
-    @name = name
-    @youtube_link = youtube_link
+  attr_reader :name, :album, :id
+  attr_accessor :youtube_link
+
+  def initialize(params)
+    @id = params[:id]
+    @name = params[:name]
+    @album = params[:album]
+    @youtube_link = params[:youtube_link] || "N/A"
   end
 end
