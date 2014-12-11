@@ -23,8 +23,9 @@ post '/albums' do
 end
 
 get '/albums/:id' do
-  @songs = Songify::SongRepo.new.find_all
-  
+  @album = Songify::AlbumRepo.new.find(params[:id])
+  @songs = Songify::SongRepo.new.find_all(album: @album)
+
 
   erb :album
 end
