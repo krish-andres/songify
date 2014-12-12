@@ -15,7 +15,7 @@
       <% end %>
     </ul>
   </div>
-  <form action="/albums/:id" method="post">
+  <form action="/albums/<%= @album.id %>/songs" method="post">
     <h3>Add Song</h3>
     <div>
       <label for="songName">Name:</label>

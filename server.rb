@@ -29,11 +29,17 @@ get '/albums/:id' do
   erb :album
 end
 
-post '/albums/:id' do
+post '/albums/:id/songs' do
   puts params
   @name = params[:songName]
   @youtube_link = params[:songLink]
   @song_album = Songify::AlbumRepo.new.find(params[:albumId])
   Songify::SongRepo.new.create({name: @name, youtube_link: @youtube_link, album: @song_album})
-  redirect to('albums/:id')
+  redirect to("albums/#{@song_album.id}")
+end
+
+get '/playlists' do 
+
+  @playlists = Songify::PlaylistRepo.new.find_all
+  erb :playlists
 end
