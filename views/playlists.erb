@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Songify</title>
+</head>
+<body>
+  <h1>Songify</h1>
+  <h3>Playlists</h3>
+  <div>
+    <ul>
+      <% @playlists.each do |playlist| %>
+        <li>
+          <span><%= playlist.name %></span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <form action="/albums/<%= @album.id %>/songs" method="post">
+    <h3>Add Song</h3>
+    <div>
+      <label for="songName">Name:</label>
+      <input id="songName" type="text" name="songName">
+    </div>
+    <div>
+      <label for="songLink">Youtube Link:</label>
+      <input id="songLink" type="text" name="songLink">
+    </div>
+    <div>
+      <input type="hidden" name="albumId" value="<%= @album.id %>">
+    </div>
+    <div>
+      <input type="submit">
+    </div>
+  </form>
+</body>
+</html>
