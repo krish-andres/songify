@@ -92,6 +92,13 @@ module Songify
       results.map { |result| build_song(result) }
     end
 
+    def all
+      command = <<-SQL
+        SELECT * FROM songs;
+      SQL
+      results = @db.exec(command)
+      results.map { |result| build_song(result) }
+    end
   end
 end
 

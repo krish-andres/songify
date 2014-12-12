@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Songify</title>
+</head>
+<body>
+  <h1>Songify</h1>
+  <h3><%= @playlist.name %> (<%= @playlist.description %>)</h3>
+  <div>
+  </div>
+  <form action="/playlists/<%= @playlist.id %>/songs" method="post">
+    <h3>Add Song</h3>
+    <div>
+      <label for="playlistSong">Select Song:</label>
+      <select name="playlistSong" id="playlistSong">
+        <% @songs.each do |song| %>        
+          <option value="<%= song.id %>">
+            <%= song.name %>
+          </option>
+
+        <% end %>
+      </select>
+    </div>
+    <div>
+      <input type="hidden" name="playlistId" value="<%= @playlist.id %>">
+    </div>
+    <div>
+      <input type="submit">
+    </div>
+  </form>
+</body>
+</html>

@@ -13,7 +13,7 @@ module Songify
 
     def drop_table
       command = <<-SQL
-        DROP TABLE IF EXISTS playlists;
+        DROP TABLE IF EXISTS playlists CASCADE;
       SQL
       @db.exec(command)
     end

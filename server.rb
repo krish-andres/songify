@@ -42,3 +42,31 @@ get '/playlists' do
   @playlists = Songify::PlaylistRepo.new.find_all
   erb :playlists
 end
+
+post '/playlists' do
+  puts params
+  @name = params[:playlistName]
+  @description = params[:playlistDesc]
+  Songify::PlaylistRepo.new.create({name: @name, description: @description})
+  redirect to('/playlists')
+end
+
+get '/playlists/:id' do
+  @playlist = Songify::PlaylistRepo.new.find(params[:id])
+
+  @playlist_songs = Songify::PlaylistSongsRepo.new.find_by({playlist: @playlist})
+
+  @songs = Songify::SongRepo.new.all
+
+  erb :playlist
+end
+
+post 'playlists/:id/songs' do
+  puts params
+
+end
+
+
+
+
+
