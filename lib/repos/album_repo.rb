@@ -52,11 +52,23 @@ module Songify
 
     def find_by(params)
       title = params[:title]
+      genre = params[:genre]
       command = <<-SQL
-        SELECT * FROM albums WHERE title=$1;
+        SELECT * FROM albums 
       SQL
-      result = @db.exec(command, [title])
-      result.map { |a| build_album(a) }
+
+      if title
+        spec = <<-SQL
+          WHERE title=$1;
+        SQL
+        results = @db.exec(command + spec, [title])
+      elsif genre
+        spec = <<-SQL
+          WHERE genre=$1;
+        SQL
+        results = @db.exec(command + spec, [genre])
+      end
+      results.map { |a| build_album(a) }
     end
 
     def find(id)

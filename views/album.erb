@@ -5,6 +5,16 @@
 </head>
 <body>
   <h1>Songify</h1>
+  <h3><%= @album.title %> (<%= @album.year %>) - <%= @album.genre %></h3>
+  <div>
+    <ul>
+      <% @songs.each do |song| %>
+        <li>
+          <span><%= song.name %></span> (<span><%= song.youtube_link %></span>)
+        </li>
+      <% end %>
+    </ul>
+  </div>
   <form action="/albums/:id" method="post">
     <h3>Add Song</h3>
     <div>
@@ -16,21 +26,11 @@
       <input id="songLink" type="text" name="songLink">
     </div>
     <div>
+      <input type="hidden" name="albumId" value="<%= @album.id %>">
+    </div>
+    <div>
       <input type="submit">
     </div>
   </form>
-
-  <br>
-  <div>
-    <h3>All Songs</h3>
-    <ul>
-      <% @songs.each do |song| %>
-        <li>
-          <span><%= song.name %></span> || 
-          <span><%= song.youtube_link %></span>
-        </li>
-      <% end %>
-    </ul>
-  </div>
 </body>
 </html>

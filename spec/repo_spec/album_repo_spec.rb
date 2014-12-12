@@ -21,6 +21,15 @@ describe Songify::AlbumRepo do
       expect(album).to be_a(Songify::Album)
       expect(album.year).to eq(2009)
     end
+
+    it "retrieves all albums of a given genre" do
+      albums.create({title: "Recovery", year: 2009, genre: 'Rap', image_link: "www.example-link.com"})  
+      albums.create({title: "Take Care", year: 2011, genre: 'Rap', image_link: "www.another-link.com"})  
+      album3 = albums.create({title: "Stadium Arcadium", year: 2004, genre: 'Rock', image_link: "www.third-link.com"}) 
+      rap_albums = albums.find_by({genre: 'Rap'})
+      expect(rap_albums.length).to eq(2)
+      expect(rap_albums).not_to include(album3)
+    end
   end
 
   describe "find all" do

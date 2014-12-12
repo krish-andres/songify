@@ -37,16 +37,18 @@
   </form>
 
   <br>
+  <h3>All Albums</h3>
   <div>
-    <h3>All Albums</h3>
     <ul>
       <% @albums.each do |album| %>
-        <li>
-          <span><%= album.title %></span> || 
-          <span><%= album.year %></span> || 
-          <span><%= album.genre %></span> || 
-          <span><%= album.image_link %></span> 
-        </li>
+        <a href="/albums/<%= album.id %>">
+          <li>
+            <span><%= album.title %></span> (<span><%= album.year %></span>) - <span><%= album.genre %></span> 
+            <br />
+            <span><%= album.image_link %></span> 
+          </li>
+          <br />
+        </a>
       <% end %>
     </ul>
   </div>
