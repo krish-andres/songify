@@ -28,4 +28,15 @@ describe Songify::PlaylistRepo do
       expect(found_playlist.name).to eq(playlist.name)
     end
   end
+
+  describe "find all" do
+    it "finds all playlists from the database" do
+      playlists.create({name: "Workout", description: "Songs for working out"})
+      playlists.create({name: "Chill", description: "Songs for chilling"})
+      playlists.create({name: "EDM", description: "Electronic music"})
+      all_playlists = playlists.find_all
+      expect(all_playlists.length).to eq(3)
+      expect(all_playlists.last).to be_a(Songify::Playlist)
+    end
+  end
 end

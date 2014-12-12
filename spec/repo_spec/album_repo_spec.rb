@@ -39,6 +39,7 @@ describe Songify::AlbumRepo do
       albums.create({title: "Graduation", year: 2007, genre: 'Rap', image_link: "www.third-link.com"})
       all_albums = albums.find_all
       expect(all_albums.length).to eq(3)
+      expect(all_albums.first).to be_a(Songify::Album)
     end
   end
 

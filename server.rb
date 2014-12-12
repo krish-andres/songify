@@ -39,7 +39,6 @@ post '/albums/:id/songs' do
 end
 
 get '/playlists' do 
-
   @playlists = Songify::PlaylistRepo.new.find_all
   erb :playlists
 end

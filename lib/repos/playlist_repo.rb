@@ -58,6 +58,14 @@ module Songify
       build_playlist(result.first)
     end
 
+    def find_all
+      command = <<-SQL
+        SELECT * FROM playlists;
+      SQL
+      results = @db.exec(command)
+      results.map { |result| build_playlist(result) }
+    end
+
   end
 end
 
