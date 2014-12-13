@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/json'
 require "sinatra/reloader" if development?
+require 'pry-byebug'
 
 require_relative 'songify.rb'
 
@@ -54,19 +55,19 @@ end
 get '/playlists/:id' do
   @playlist = Songify::PlaylistRepo.new.find(params[:id])
 
-  @playlist_songs = Songify::PlaylistSongsRepo.new.find_by({playlist: @playlist})
-
+  @playlist_songs = Songify::PlaylistSongsRepo.new.find_by({playlist_id: @playlist})
+  
   @songs = Songify::SongRepo.new.all
 
   erb :playlist
 end
 
-post 'playlists/:id/songs' do
+post '/playlists/:id/songs' do
   puts params
-
+  playlist_id = params[:playlistId]
+  song_id = params[:playlistSong]
+  Songify::PlaylistSongsRepo.new.create(playlist_id: playlist_id, song_id: song_id)
+  redirect to("playlists/#{playlist_id}")
 end
-
-
-
 
 

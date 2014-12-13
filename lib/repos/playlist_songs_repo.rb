@@ -19,8 +19,8 @@ module Songify
     end
 
     def create(params)
-      playlist_id = params[:playlist]
-      song_id = params[:song]
+      playlist_id = params[:playlist_id]
+      song_id = params[:song_id]
       command = <<-SQL
         INSERT INTO playlist_songs(playlist_id, song_id)
         VALUES ($1,$2)
@@ -30,14 +30,16 @@ module Songify
     end
 
     def find_by(params)
-      playlist_id = params[:playlist].id
+      playlist_id = params[:playlist_id].id
       command = <<-SQL
-        SELECT * FROM playlist_songs ps
-        JOIN songs s
+        SELECT * FROM songs s
+        JOIN playlist_songs ps
         ON s.id = ps.song_id
         WHERE ps.playlist_id=$1;
       SQL
+
       results = @db.exec(command, [playlist_id])
+      results.map { |r| Songify::SongRepo.new.build_song(r) }
     end
 
   end

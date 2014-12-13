@@ -7,11 +7,5 @@ describe Songify::PlaylistSongsRepo do
     playlist_songs.create_table
   end
 
-  describe "find_by" do
-    it "dummy spec" do
-      playlist = Songify::PlaylistRepo.new.create({name: "Workout", description: "Description"})
-      playlist_songs.find_by(playlist: playlist)
-    end
-  end
 
 end
