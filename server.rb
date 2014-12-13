@@ -3,6 +3,12 @@ require 'sinatra/json'
 require "sinatra/reloader" if development?
 require 'pry-byebug'
 
+module Songify
+  def self.db
+    @db ||= PG.connect(dbname: 'songify-db')
+  end
+end
+
 require_relative 'songify.rb'
 
 set :bind, '0.0.0.0' # This is needed for Vagrant

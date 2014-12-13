@@ -3,7 +3,7 @@ require 'pg'
 module Songify
   class Repo
     def initialize
-      @db = PG.connect(dbname: 'songify-db')
+      @db = Songify.db
     end
   end
 end
